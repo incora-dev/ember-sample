@@ -1,0 +1,29 @@
+<section class="tabs__section tabs__section--outline">
+  {{#scrollable-area}}
+    {{crud-recording-info
+      model=model
+      broadcasterRecordings=broadcasterRecordings
+      onSaveSuccess=(route-action 'onSaveSuccess')
+      isEdit=true
+      waitForDOMChangeEventBeforeNotifyEditState=true
+      showLocalIdsWhenMissing=false
+      created=false
+    }}
+
+    {{#if showDraft}}
+      {{#echo-section-container isEdit=isEdit id="recording_draft_info"}}
+        {{molecules/echo-section-container-infobar title=(t 'discography.recordings.info-from-draft') }}
+        <h2>{{t 'discography.recordings.performers'}}</h2>
+        {{crud-recording-performances-from-draft
+          draftContributors=model.draftContributors
+          recordingSource=model.source
+          recordingSourceId=model.sourceId
+          hideActions=true
+        }}
+
+        <h2>{{t 'discography.recordings.tracks'}}</h2>
+        {{crud-recording-release-tracks-from-draft draftTracks=model.draftTracks}}
+      {{/echo-section-container}}
+    {{/if}}
+  {{/scrollable-area}}
+</section><!--end /.tabs__section-->
